@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amazon Scraper</title>
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Amazon Product Scraper</h1>
+    <button id="toggleTheme" class="secondary-button">Alternar Tema</button>
+
+    <form id="searchForm">
+      <input type="text" id="keyword" placeholder="Enter keyword..." required />
+      <button type="submit">Search</button>
+    </form>
+
+    <button id="exportButton" class="secondary-button hidden">Exportar CSV</button>
+
+    <div id="loader" class="hidden"></div>
+    <div id="results"></div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
