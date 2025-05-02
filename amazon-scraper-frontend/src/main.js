@@ -1,5 +1,5 @@
 let lastResults = [];
-
+// Realiza a busca pelo produto e cria os cards com as informações
 document.getElementById('searchForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -59,7 +59,7 @@ document.getElementById('searchForm').addEventListener('submit', async (e) => {
     loader.classList.add('hidden');
   }
 });
-
+// Pega os elementos pesquisados e faz o download das informações no formato csv
 document.getElementById('exportButton').addEventListener('click', () => {
   if (!lastResults.length) return;
 

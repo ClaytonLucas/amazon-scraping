@@ -15,6 +15,7 @@ app.get("/api/scrape", async (req, res) => {
 
   try {
     const url = `https://www.amazon.com/s?k=${encodeURIComponent(keyword)}`;
+    /// Para evitar o bloqueio pela amazon se fez necessário alternar os userAgents a cada nova busca
     const userAgents = [
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
@@ -22,11 +23,12 @@ app.get("/api/scrape", async (req, res) => {
         "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
       ];
     const { data: html } = await axios.get(url, {
+      /// O header foi criado com muitos detalhes para simular um navegador real e evitar o bloqueio da amazon
       headers: {
         "User-Agent": userAgents[Math.floor(Math.random() * userAgents.length)],
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
         "Accept-Language": "en-US,en;q=0.9",
-        "Accept-Encoding": "gzip, deflate, br",  // Aceita resposta compactada
+        "Accept-Encoding": "gzip, deflate, br",  
         "Connection": "keep-alive",
         "Upgrade-Insecure-Requests": "1",
         "Sec-Fetch-Dest": "document",
@@ -43,7 +45,7 @@ app.get("/api/scrape", async (req, res) => {
     const products: any[] = [];
 
     const items = document.querySelectorAll("[data-component-type='s-search-result']");
-
+    // Busca as informações dos produtos
     items.forEach((item) => {
       const titleElement = item.querySelector("h2 span");
       const ratingElement = item.querySelector("[aria-label*='out of 5 stars']");
